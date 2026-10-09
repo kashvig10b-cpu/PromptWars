@@ -1,5 +1,13 @@
 node_modules/
-.env
 backend/node_modules/
 frontend/node_modules/
-backend/data/db/
+backend/data/
+frontend/dist/
+.env
+*.env
+*.log
+*.class
+*.py
+*creds.json
+backend/uploads/*.pdf
+
