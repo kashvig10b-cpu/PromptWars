@@ -89,6 +89,10 @@ const certificateSchema = new mongoose.Schema(
   }
 );
 
+// Compound B-Tree indexes for fast FIFO queue querying and student lookup
+certificateSchema.index({ status: 1, createdAt: 1 });
+certificateSchema.index({ studentId: 1, status: 1 });
+
 // Pre-validate hook to sync name & title, document & fileUrl, and ensure valid defaults
 certificateSchema.pre('validate', function (next) {
   if (!this.name && this.title) {

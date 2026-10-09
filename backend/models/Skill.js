@@ -59,8 +59,10 @@ const skillSchema = new mongoose.Schema(
   }
 );
 
-// Compound index to prevent duplicate skill per student
+// Compound indexes for uniqueness and high-speed multi-criteria filter queries
 skillSchema.index({ studentId: 1, name: 1 }, { unique: true });
+skillSchema.index({ studentId: 1, category: 1 });
+skillSchema.index({ name: 1, verified: 1 });
 
 const Skill = mongoose.model('Skill', skillSchema);
 

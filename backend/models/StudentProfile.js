@@ -72,6 +72,7 @@ const studentProfileSchema = new mongoose.Schema(
       default: 0,
       min: 0,
       max: 100,
+      index: true,
     },
   },
   {
@@ -79,7 +80,17 @@ const studentProfileSchema = new mongoose.Schema(
   }
 );
 
-// Utility function to generate unique passport ID
+// High-Performance Compound B-Tree Indexes for O(log N) Recruiter Queries
+studentProfileSchema.index({ profileCompletion: -1, degree: 1 });
+studentProfileSchema.index({ profileCompletion: -1, department: 1 });
+studentProfileSchema.index({ userId: 1, passportId: 1 });
+
+/**
+ * Deterministic-Stochastic Cryptographic Passport ID Generator
+ * Combines sanitized uppercase name prefix with 3-byte secure PRNG hex string.
+ * @param {string} name - Student's legal full name
+ * @returns {string} Unique Passport ID (e.g. KASHVI-8A2F91)
+ */
 studentProfileSchema.statics.generatePassportId = function (name = 'STUDENT') {
   const prefix = name
     .replace(/[^a-zA-Z]/g, '')
